@@ -1,0 +1,21 @@
+{
+  "name": "set-compare-experiment",
+  "version": "0.0.0",
+  "description": "Experiments in comparing sets",
+  "main": "experiment.js",
+  "dependencies": {
+    "microtime": "~0.3.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node experiment.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikolalysenko/set-compare.git"
+  },
+  "author": "Mikola Lysenko",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "c344f49194d2070df64c60442c9af300aac8d06e"
+}
