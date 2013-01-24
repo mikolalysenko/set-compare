@@ -82,6 +82,34 @@ function compare3Sym(a, b) {
   return a[0] * a[1] * a[2] - b[0] * b[1] * b[2];
 }
 
+function compare4Sym(a, b) {
+  var d = a[0] + a[1] + a[2] + a[3] - b[0] - b[1] - b[2] - b[3];
+  if(d) {
+    return d;
+  }
+  d = 0;
+  for(var i=0; i<4; ++i) {
+    for(var j=i+1; j<4; ++j) {
+      d += a[i] * a[j] - b[i] * b[j];
+    }
+  }
+  if(d) {
+    return d;
+  }
+  d = 0;
+  for(var i=0; i<4; ++i) {
+    for(var j=i+1; j<4; ++j) {
+      for(var k=j+1; k<4; ++k) {
+        d += a[i] * a[j] * a[k] - b[i] * b[j] * b[k];
+      }
+    }
+  }
+  if(d) {
+    return d;
+  }
+  return a[0] * a[1] * a[2] * a[3] - b[0] * b[1] * b[2] * b[3];
+}
+
 function compare3SymOpt(a,b) {
   var l0 = a[0] + a[1]
     , m0 = b[0] + b[1]
@@ -97,6 +125,32 @@ function compare3SymOpt(a,b) {
   }
   return l0 * a[2] + l1 - m0 * b[2] - m1;
 }
+
+
+function compare4SymOpt(a,b) {
+  var l0 = a[0] + a[1]
+    , l1 = a[2] + a[3]
+    , m0 = b[0] + b[1]
+    , m1 = b[2] + b[3]
+    , d  = l0 + l1 - m0 - m1;
+  if(d) {
+    return d;
+  }
+  var l10 = a[0] * a[1]
+    , l11 = a[2] * a[3]
+    , m10 = b[0] * b[1]
+    , m11 = b[2] * b[3];
+  d = l10 * l11 - m10 * m11;
+  if(d) {
+    return d;
+  }
+  d = l0 * l1 + l10 + l11 - m0 * m1 - m10 - m11;
+  if(d) {
+    return d;
+  }
+  return l10 * l1 + l11 * l0 - m10 * m1 - m11 * m0;
+}
+
 
 function compare2Rank(a, b) {
   var d = Math.min(a[0],a[1]) - Math.min(b[0],b[1]);
@@ -191,6 +245,11 @@ var tests = [
     "sym_opt":  compare3SymOpt,
     "rank":     compare3Rank,
     "minp":     compare3MinP
+  },
+  {
+    "simple":   compareSimple,
+    "sym":      compare4Sym,
+    "sym_opt":  compare4SymOpt
   }
 ];
 
